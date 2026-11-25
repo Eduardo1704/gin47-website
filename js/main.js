@@ -283,7 +283,7 @@ if (typeof document !== "undefined") (() => {
       const WALL = 4.7, START = 5.2, STEP = 1.8; // timeline units: room, presentation and plate end at WALL; chapter i starts at T(i)
       const T = (i) => START + i * STEP;
       const clampIdx = (i) => Math.max(0, Math.min(chaps.length - 1, i));
-      let dotIdx = 0, active = -1;
+      let active = -1;
       expo.classList.add("is-live");
       [plateImg, ...imgs].forEach((im) => { im.loading = "eager"; });
 
@@ -409,16 +409,15 @@ if (typeof document !== "undefined") (() => {
       const ambIO = new IntersectionObserver(([en]) => { inView = en.isIntersecting; });
       ambIO.observe(expo);
       araf = requestAnimationFrame(ambient);
-      const dots = makeDots(chapWrap, $("ol", chapWrap), () => imgs[dotIdx]);
-      gsap.set(dots, { opacity: 0 });
 
-      // camera on painting i: close = fills the screen, otherwise standing back so the neighbours show
+      // camera on painting i: close = in front of it, otherwise standing back so the neighbours show
       const at = (i, close) => {
         const im = paintings[i], fr = im.parentNode, ex = fr.parentNode;
         const W = wall.offsetWidth, H = wall.offsetHeight;
         const cx = ex.offsetLeft + fr.offsetLeft + im.offsetLeft + im.offsetWidth / 2;
         const cy = ex.offsetTop + fr.offsetTop + im.offsetTop + im.offsetHeight / 2;
-        const s = close ? Math.max(W / im.offsetWidth, H / im.offsetHeight) * 1.002 : 0.72;
+        // close = the whole painting, frame included, as large as fits (no crop, no blow-up of the photo)
+        const s = close ? Math.min((W * 0.9) / fr.offsetWidth, (H * 0.84) / fr.offsetHeight) : 0.72;
         return { x: W / 2 - s * cx - track.offsetLeft, y: H / 2 - s * cy - track.offsetTop, scale: s };
       };
       const cam = (i, close) => ({ x: () => at(i, close).x, y: () => at(i, close).y, scale: () => at(i, close).scale });
@@ -432,11 +431,10 @@ if (typeof document !== "undefined") (() => {
         const t = T(i);
         walk([i, false], [i, true], t, 0.45, "power2.inOut");
         tl.to(shade, { opacity: 1, duration: 0.2 }, t + 0.3)
-          .to(dots, { opacity: 1, duration: 0.2 }, t + 0.4)
           .fromTo(bodies[i], { opacity: 0 }, { opacity: 1, duration: 0.25, immediateRender: false }, t + 0.4);
         if (i === chaps.length - 1) return;
         tl.to(bodies[i], { opacity: 0, duration: 0.2 }, t + 1)
-          .to([shade, dots], { opacity: 0, duration: 0.2 }, t + 1);
+          .to(shade, { opacity: 0, duration: 0.2 }, t + 1);
         walk([i, true], [i, false], t + 1.15, 0.3, "power2.inOut");
         walk([i, false], [i + 1, false], t + 1.45, 0.35, "power1.inOut");
       });
@@ -447,7 +445,6 @@ if (typeof document !== "undefined") (() => {
         end: () => "+=" + Math.round(tl.duration() * innerHeight * 0.65),
         onUpdate: (self) => {
           const time = self.progress * tl.duration();
-          dotIdx = clampIdx(Math.floor((time - START + 0.3) / STEP)); // swaps mid-walk, while the dots are hidden
           const cur = time < START + 0.3 ? -1 : clampIdx(Math.floor((time - START) / STEP));
           const rel = cur < 0 ? -1 : time - T(cur);
           const on = rel >= 0.4 && (rel <= 1.05 || cur === chaps.length - 1) ? cur : -1; // text is on screen
@@ -477,7 +474,7 @@ if (typeof document !== "undefined") (() => {
         expo.classList.remove("is-live");
         chapWrap.removeEventListener("focusin", onFocus);
         chaps.forEach((c) => c.classList.remove("is-active"));
-        [dots, plateDots, wall, shade].forEach((el) => el.parentNode && el.parentNode.removeChild(el));
+        [plateDots, wall, shade].forEach((el) => el.parentNode && el.parentNode.removeChild(el));
         setChapterNo("00");
         cancelAnimationFrame(araf);
         ambIO.disconnect();

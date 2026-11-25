@@ -133,7 +133,7 @@ _[Paste the professor's four questions here. Answer each with: the decision, whe
 |---|---|
 | Optimized images | 24 photos → WebP 800/1600 w with `srcset`, `width`/`height`, lazy loading (3.1 MB total) |
 | Descriptive alt | Every content image; decorative ornaments use `alt=""` |
-| Video with controls, responsive | `<video controls playsinline poster>` 1280×720 MP4 (1.6 MB), `width:100%`, text description (WCAG 1.2.1, video-only) |
+| Video with controls, responsive | `<video controls playsinline poster>` 1920×1080 MP4 (5.2 MB, each photo shown whole over a blurred copy, H.264 CRF 19), `width:100%`, text description (WCAG 1.2.1, video-only) |
 | Validated form + declared strategy | JS validation (name, 10-digit phone, optional email, date today–60 days, time ≥ 30 min ahead, guests 1–12, age), inline errors + error summary. **Strategy:** on success it opens WhatsApp to +52 999 241 5334 with the request written; nothing is stored. Stated above the form. |
 | Responsive map | Google Maps iframe in a 4:3 / 16:10 box, exact address, text fallback, link to directions |
 | Responsive at 3 widths | Tested at 375 × 812, 768 × 1024, 1440 × 900: no horizontal scroll on any page |

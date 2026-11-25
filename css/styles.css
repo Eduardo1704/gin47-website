@@ -181,6 +181,7 @@ h1 em, h2 em, h3 em { font-size: 1.08em; line-height: 0.9; }
 .index-dialog {
   width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0;
   background: var(--ink); color: var(--bone);
+  overflow-y: auto; overscroll-behavior: contain;
 }
 .index-dialog::backdrop { background: rgba(15, 13, 11, 0.6); }
 .index-dialog[open] { animation: fade-in 0.45s var(--ease); }
@@ -500,7 +501,7 @@ a:hover .arrow, button:hover .arrow { transform: translateX(4px); }
   background: radial-gradient(ellipse 55% 50% at 50% 28%, rgba(240, 196, 120, 0.13), transparent 70%);
 }
 .exhibit__frame { position: relative; padding: clamp(8px, 1cqw, 14px); }
-.exhibit__frame img { display: block; width: 50cqw; height: 50cqh; object-fit: cover; }
+.exhibit__frame img { display: block; width: auto; height: 50cqh; max-width: 62cqw; object-fit: cover; }
 .exhibit__label { /* museum label */
   position: absolute; right: 0; top: calc(100% + 1.4rem); margin: 0; padding: 0.5rem 0.9rem;
   background: var(--paper); color: var(--paper-ink); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
@@ -509,6 +510,9 @@ a:hover .arrow, button:hover .arrow { transform: translateX(4px); }
 .wall__shade { /* darkens the painting under the chapter text */
   position: absolute; inset: 0; z-index: 1; opacity: 0; pointer-events: none;
   background: linear-gradient(to bottom, rgba(15, 13, 11, 0.92), rgba(15, 13, 11, 0.72) 45%, rgba(15, 13, 11, 0.92));
+}
+@media (min-width: 1000px) { /* text sits left and bottom-right: shade there, keep the painting lit */
+  .wall__shade { background: linear-gradient(to right, rgba(15, 13, 11, 0.9), rgba(15, 13, 11, 0.55) 38%, rgba(15, 13, 11, 0.12) 60%, rgba(15, 13, 11, 0.5)); }
 }
 
 
