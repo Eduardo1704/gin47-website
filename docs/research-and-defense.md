@@ -138,7 +138,8 @@ _[Paste the professor's four questions here. Answer each with: the decision, whe
 | Responsive map | Google Maps iframe in a 4:3 / 16:10 box, exact address, text fallback, link to directions |
 | Responsive at 3 widths | Tested at 375 × 812, 768 × 1024, 1440 × 900: no horizontal scroll on any page |
 | AA accessibility | Contrast table §2.3, skip link, visible focus, 44 px targets, native `<dialog>`, `aria-pressed` chips, `role="status"` counts, `prefers-reduced-motion` respected |
-| Validation | `html-validate` recommended ruleset: 0 errors on 8 pages. _[Team: also run https://validator.w3.org/ and attach a screenshot.]_ |
+| Validation | `html-validate` recommended ruleset: 0 errors on 8 pages. W3C Nu validator on the live site (2026-11-24): 0 errors, 0 warnings on index, about, gin, cocktails, contact, gallery. _[Team: run products.html and yucatan.html at https://validator.w3.org/ and attach screenshots.]_ |
+| Live site | https://eduardo1704.github.io/gin47-website/ (GitHub Pages, `noindex` so it never competes with gin47mx.com) |
 | Links | Script check: 0 broken internal links or anchors |
 | Works from the zip | Fonts and libraries are local (`fonts/`, `js/vendor/`); only the map needs internet |
 
