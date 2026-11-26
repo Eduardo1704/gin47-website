@@ -76,7 +76,7 @@ _Rates are team estimates for the exercise; replace with quotes if the professor
 Required file names from the brief are kept (`index`, `about`, `products`, `contact`); the four extra pages cover the 8-member team scope.
 
 ### 2.2 Navigation codes (same on every page)
-- **Header:** logo (home), "Reserve" shortcut, **Index** button (full-screen chapter list) and the chapter number in italics (`00`–`07`).
+- **Header:** logo (home), "Reserve" shortcut, **Chapters** button (full-screen chapter list) and the chapter number in italics (`00`–`07`).
 - **Chapter bar (bottom):** `← Previous · progress line · Next →`. The gold line fills as you scroll: *where am I and how much is left*.
 - **Footer:** address, hours, all 8 links, credits, LLM declaration.
 
